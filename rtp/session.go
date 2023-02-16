@@ -24,8 +24,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jart/gosip/dsp"
-	"github.com/jart/gosip/sdp"
+	"github.com/rafapcarvalho/gosipp/dsp"
+	"github.com/rafapcarvalho/gosipp/sdp"
 )
 
 const (

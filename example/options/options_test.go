@@ -22,8 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jart/gosip/sip"
-	"github.com/jart/gosip/util"
+	"github.com/rafapcarvalho/gosipp/sip"
+	"github.com/rafapcarvalho/gosipp/util"
 )
 
 func TestOptions(t *testing.T) {
