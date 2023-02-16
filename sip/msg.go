@@ -47,6 +47,7 @@ type Msg struct {
 	CallID      string // Identifies call from invite to bye
 	CSeq        int    // Counter for network packet ordering
 	CSeqMethod  string // Helps with matching to orig message
+	RSeq        int    // Remote CSeq used for reliable message
 	MaxForwards int    // 0 has context specific meaning
 	UserAgent   string
 
@@ -96,7 +97,6 @@ type Msg struct {
 }
 
 //go:generate ragel -Z -G2 -o msg_parse.go msg_parse.rl
-
 func (msg *Msg) IsResponse() bool {
 	return msg.Status > 0
 }
@@ -199,6 +199,10 @@ func (msg *Msg) Append(b *bytes.Buffer) {
 	b.WriteString(strconv.Itoa(msg.CSeq))
 	b.WriteString(" ")
 	b.WriteString(msg.CSeqMethod)
+	b.WriteString("\r\n")
+
+	b.WriteString("RSeq: ")
+	b.WriteString(strconv.Itoa(msg.RSeq))
 	b.WriteString("\r\n")
 
 	if msg.UserAgent != "" {

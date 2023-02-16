@@ -237,6 +237,10 @@ action CSeqMethod {
 	msg.CSeqMethod = string(data[mark:p])
 }
 
+action RSeq {
+	msg.RSeq = msg.RSeq * 10 + (int(fc) - 0x30)
+}
+
 action Expires {
 	msg.Expires = msg.Expires * 10 + (int(fc) - 0x30)
 }
@@ -492,6 +496,7 @@ sname    = "Accept"i %{value=&msg.Accept}
 cheader  = ("Call-ID"i | "i"i) $!gxh HCOLON cid >mark %CallID
          | ("Content-Length"i | "l"i) $!gxh HCOLON digit+ >{clen=0} @ContentLength
          | "CSeq"i $!gxh HCOLON (digit+ @CSeq) LWS token >mark %CSeqMethod
+         | "RSeq"i $!gxh HCOLON (digit+ @CSeq) >{msg.RSeq=0} @RSeq
          | ("Expires"i | "l"i) $!gxh HCOLON digit+ >{msg.Expires=0} @Expires
          | ("Max-Forwards"i | "l"i) $!gxh HCOLON digit+ >{msg.MaxForwards=0} @MaxForwards
          | ("Min-Expires"i | "l"i) $!gxh HCOLON digit+ >{msg.MinExpires=0} @MinExpires
