@@ -51,6 +51,16 @@ func GenerateCSeq() int {
 	return int(nBig.Int64())
 }
 
+// Generate a secure random number between 1 and 50,000.
+func GenerateRSeq() int {
+	nBig, err := rand.Int(rand.Reader, big.NewInt(50000))
+	if err != nil {
+		panic("could not get random int: " + err.Error())
+	}
+
+	return int(nBig.Int64()) + 1
+}
+
 // Generate a 48-bit secure random string like: 27c97271d363.
 func GenerateTag() string {
 	return hex.EncodeToString(randomBytes(6))

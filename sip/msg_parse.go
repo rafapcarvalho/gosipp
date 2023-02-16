@@ -16212,7 +16212,7 @@ func ParseMsg(data []byte) (msg *Msg, err error) {
 		goto st0
 	tr914:
 //line sip.rl:499
-		msg.RSeq = 0
+		msg.RSeq = 1
 //line sip.rl:232
 
 		msg.CSeq = msg.CSeq*10 + (int(data[p]) - 0x30)
